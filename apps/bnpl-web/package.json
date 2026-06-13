@@ -1,5 +1,5 @@
 {
-  "name": "flights-web",
+  "name": "bnpl-web",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -8,8 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
-    "lint": "echo \"(flights-web) no lint configured yet\"",
-    "clean": "echo \"(flights-web) nothing to clean\""
+    "lint": "echo \"(bnpl-web) no lint configured yet\"",
+    "clean": "echo \"(bnpl-web) nothing to clean\""
   },
   "dependencies": {
     "@sensei/api-client": "workspace:*",
