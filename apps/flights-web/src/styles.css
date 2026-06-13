@@ -334,6 +334,51 @@ body {
   text-align: center;
 }
 
+/* Header right + auth */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.who {
+  color: #cfdaea;
+  font-size: 14px;
+}
+a.lang {
+  text-decoration: none;
+  display: inline-block;
+}
+
+/* Auth screen */
+.auth-wrap {
+  display: flex;
+  justify-content: center;
+  padding-top: 24px;
+}
+.auth-card {
+  background: #fff;
+  border: 1px solid var(--sensei-line);
+  border-radius: 16px;
+  padding: 28px;
+  width: 100%;
+  max-width: 420px;
+}
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 18px;
+}
+.link-toggle {
+  background: none;
+  border: none;
+  color: var(--sensei-blue);
+  cursor: pointer;
+  margin-top: 16px;
+  font-size: 14px;
+  padding: 0;
+}
+
 @media (max-width: 680px) {
   .checkout-grid {
     grid-template-columns: 1fr;

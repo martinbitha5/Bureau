@@ -68,8 +68,12 @@ export function ResultsPage() {
                   search={{
                     origin: seg.from,
                     destination: seg.to,
+                    departDate: search.departDate,
+                    passengers: search.passengers,
+                    cabin: search.cabin,
                     carrier: seg.carrier,
                     flightNumber: seg.flightNumber,
+                    providerOfferId: offer.providerOfferId,
                     totalCents: offer.totalCents,
                   }}
                   className="btn-primary small"

@@ -23,6 +23,12 @@ importers:
       '@sensei/api-client':
         specifier: workspace:*
         version: link:../../packages/api-client
+      '@sensei/auth':
+        specifier: workspace:*
+        version: link:../../packages/auth
+      '@sensei/database':
+        specifier: workspace:*
+        version: link:../../packages/database
       '@sensei/payments':
         specifier: workspace:*
         version: link:../../packages/payments
@@ -35,6 +41,9 @@ importers:
       '@sensei/utils':
         specifier: workspace:*
         version: link:../../packages/utils
+      '@supabase/supabase-js':
+        specifier: ^2.45.0
+        version: 2.108.1
       '@tanstack/react-query':
         specifier: ^5.62.0
         version: 5.101.0(react@18.3.1)
