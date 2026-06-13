@@ -18,6 +18,88 @@ importers:
         specifier: ^5.6.0
         version: 5.9.3
 
+  apps/bnpl-mobile:
+    dependencies:
+      '@expo/metro-runtime':
+        specifier: ~6.1.2
+        version: 6.1.2(expo@54.0.35)(react-dom@19.2.7(react@19.1.0))(react-native@0.81.5(@babel/core@7.29.7)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+      '@react-native-async-storage/async-storage':
+        specifier: 2.2.0
+        version: 2.2.0(react-native@0.81.5(@babel/core@7.29.7)(@types/react@19.1.17)(react@19.1.0))
+      '@sensei/api-client':
+        specifier: workspace:*
+        version: link:../../packages/api-client
+      '@sensei/auth':
+        specifier: workspace:*
+        version: link:../../packages/auth
+      '@sensei/payments':
+        specifier: workspace:*
+        version: link:../../packages/payments
+      '@sensei/types':
+        specifier: workspace:*
+        version: link:../../packages/types
+      '@sensei/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
+      '@sensei/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
+      '@supabase/supabase-js':
+        specifier: ^2.45.0
+        version: 2.108.1
+      '@tanstack/react-query':
+        specifier: ^5.62.0
+        version: 5.101.0(react@19.1.0)
+      expo:
+        specifier: ~54.0.0
+        version: 54.0.35(@babel/core@7.29.7)(@expo/metro-runtime@6.1.2)(expo-router@6.0.24)(react-native@0.81.5(@babel/core@7.29.7)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)(typescript@5.9.3)
+      expo-constants:
+        specifier: ~18.0.0
+        version: 18.0.13(expo@54.0.35)(react-native@0.81.5(@babel/core@7.29.7)(@types/react@19.1.17)(react@19.1.0))
+      expo-linking:
+        specifier: ~8.0.0
+        version: 8.0.12(expo@54.0.35)(react-native@0.81.5(@babel/core@7.29.7)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+      expo-router:
+        specifier: ~6.0.0
+        version: 6.0.24(@expo/metro-runtime@6.1.2)(@types/react-dom@19.2.3(@types/react@19.1.17))(@types/react@19.1.17)(expo-constants@18.0.13)(expo-linking@8.0.12)(expo@54.0.35)(react-dom@19.2.7(react@19.1.0))(react-native-safe-area-context@5.6.2(react-native@0.81.5(@babel/core@7.29.7)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native-screens@4.16.0(react-native@0.81.5(@babel/core@7.29.7)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.29.7)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+      expo-status-bar:
+        specifier: ~3.0.0
+        version: 3.0.9(react-native@0.81.5(@babel/core@7.29.7)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+      react:
+        specifier: 19.1.0
+        version: 19.1.0
+      react-native:
+        specifier: 0.81.5
+        version: 0.81.5(@babel/core@7.29.7)(@types/react@19.1.17)(react@19.1.0)
+      react-native-safe-area-context:
+        specifier: ~5.6.0
+        version: 5.6.2(react-native@0.81.5(@babel/core@7.29.7)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+      react-native-screens:
+        specifier: ~4.16.0
+        version: 4.16.0(react-native@0.81.5(@babel/core@7.29.7)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+      react-native-url-polyfill:
+        specifier: ^2.0.0
+        version: 2.0.0(react-native@0.81.5(@babel/core@7.29.7)(@types/react@19.1.17)(react@19.1.0))
+    devDependencies:
+      '@babel/core':
+        specifier: ^7.25.0
+        version: 7.29.7
+      '@babel/plugin-transform-private-methods':
+        specifier: ^7.25.0
+        version: 7.29.7(@babel/core@7.29.7)
+      '@babel/plugin-transform-private-property-in-object':
+        specifier: ^7.25.0
+        version: 7.29.7(@babel/core@7.29.7)
+      '@types/react':
+        specifier: ~19.1.0
+        version: 19.1.17
+      babel-preset-expo:
+        specifier: ~54.0.0
+        version: 54.0.11(@babel/core@7.29.7)(@babel/runtime@7.29.7)(expo@54.0.35)(react-refresh@0.17.0)
+      typescript:
+        specifier: ~5.9.2
+        version: 5.9.3
+
   apps/bnpl-web:
     dependencies:
       '@sensei/api-client':
@@ -209,6 +291,88 @@ importers:
       vite:
         specifier: ^6.0.7
         version: 6.4.3(@types/node@25.9.3)(lightningcss@1.32.0)(terser@5.48.0)(yaml@2.9.0)
+
+  apps/flights-mobile:
+    dependencies:
+      '@expo/metro-runtime':
+        specifier: ~6.1.2
+        version: 6.1.2(expo@54.0.35)(react-dom@19.2.7(react@19.1.0))(react-native@0.81.5(@babel/core@7.29.7)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+      '@react-native-async-storage/async-storage':
+        specifier: 2.2.0
+        version: 2.2.0(react-native@0.81.5(@babel/core@7.29.7)(@types/react@19.1.17)(react@19.1.0))
+      '@sensei/api-client':
+        specifier: workspace:*
+        version: link:../../packages/api-client
+      '@sensei/auth':
+        specifier: workspace:*
+        version: link:../../packages/auth
+      '@sensei/payments':
+        specifier: workspace:*
+        version: link:../../packages/payments
+      '@sensei/types':
+        specifier: workspace:*
+        version: link:../../packages/types
+      '@sensei/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
+      '@sensei/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
+      '@supabase/supabase-js':
+        specifier: ^2.45.0
+        version: 2.108.1
+      '@tanstack/react-query':
+        specifier: ^5.62.0
+        version: 5.101.0(react@19.1.0)
+      expo:
+        specifier: ~54.0.0
+        version: 54.0.35(@babel/core@7.29.7)(@expo/metro-runtime@6.1.2)(expo-router@6.0.24)(react-native@0.81.5(@babel/core@7.29.7)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)(typescript@5.9.3)
+      expo-constants:
+        specifier: ~18.0.0
+        version: 18.0.13(expo@54.0.35)(react-native@0.81.5(@babel/core@7.29.7)(@types/react@19.1.17)(react@19.1.0))
+      expo-linking:
+        specifier: ~8.0.0
+        version: 8.0.12(expo@54.0.35)(react-native@0.81.5(@babel/core@7.29.7)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+      expo-router:
+        specifier: ~6.0.0
+        version: 6.0.24(@expo/metro-runtime@6.1.2)(@types/react-dom@19.2.3(@types/react@19.1.17))(@types/react@19.1.17)(expo-constants@18.0.13)(expo-linking@8.0.12)(expo@54.0.35)(react-dom@19.2.7(react@19.1.0))(react-native-safe-area-context@5.6.2(react-native@0.81.5(@babel/core@7.29.7)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native-screens@4.16.0(react-native@0.81.5(@babel/core@7.29.7)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.29.7)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+      expo-status-bar:
+        specifier: ~3.0.0
+        version: 3.0.9(react-native@0.81.5(@babel/core@7.29.7)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+      react:
+        specifier: 19.1.0
+        version: 19.1.0
+      react-native:
+        specifier: 0.81.5
+        version: 0.81.5(@babel/core@7.29.7)(@types/react@19.1.17)(react@19.1.0)
+      react-native-safe-area-context:
+        specifier: ~5.6.0
+        version: 5.6.2(react-native@0.81.5(@babel/core@7.29.7)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+      react-native-screens:
+        specifier: ~4.16.0
+        version: 4.16.0(react-native@0.81.5(@babel/core@7.29.7)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+      react-native-url-polyfill:
+        specifier: ^2.0.0
+        version: 2.0.0(react-native@0.81.5(@babel/core@7.29.7)(@types/react@19.1.17)(react@19.1.0))
+    devDependencies:
+      '@babel/core':
+        specifier: ^7.25.0
+        version: 7.29.7
+      '@babel/plugin-transform-private-methods':
+        specifier: ^7.25.0
+        version: 7.29.7(@babel/core@7.29.7)
+      '@babel/plugin-transform-private-property-in-object':
+        specifier: ^7.25.0
+        version: 7.29.7(@babel/core@7.29.7)
+      '@types/react':
+        specifier: ~19.1.0
+        version: 19.1.17
+      babel-preset-expo:
+        specifier: ~54.0.0
+        version: 54.0.11(@babel/core@7.29.7)(@babel/runtime@7.29.7)(expo@54.0.35)(react-refresh@0.17.0)
+      typescript:
+        specifier: ~5.9.2
+        version: 5.9.3
 
   apps/flights-web:
     dependencies:

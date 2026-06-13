@@ -1,0 +1,13 @@
+{
+  "expo": {
+    "name": "Sensei Flights",
+    "slug": "sensei-flights-mobile",
+    "scheme": "senseiflights",
+    "version": "0.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "plugins": ["expo-router"],
+    "experiments": { "typedRoutes": true }
+  }
+}

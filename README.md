@@ -60,8 +60,10 @@ Prouvé E2E (la boucle est visible : remboursement BNPL → score qui monte).
 l'Edge Function **`pay-installment`** (service_role, CORS) → encaisse (mock) + **écrit l'événement
 de score CÔTÉ SERVEUR** → le score monte en direct. Prouvé E2E (616 → 624). L'utilisateur ne
 peut pas écrire son score lui-même (RLS).
-✅ Monorepo unifié sur **React 19** ; **12 projets**, typecheck vert.
+✅ **`apps/bnpl-mobile`** et **`apps/flights-mobile`** (Expo) : la suite mobile complète, mêmes
+packages partagés. Bundle + bytecode Hermes vérifiés. → **les 6 apps existent** (3 web + 3 mobile).
+✅ Monorepo unifié sur **React 19** ; **14 projets**, typecheck vert.
 🔜 Prochaine étape : auth téléphone (brancher un SMS), vrai webhook de paiement (remplacer le mock
-dans `pay-installment`), apps mobiles `flights`/`bnpl`, i18n Lingala/Swahili.
+dans `pay-installment`), i18n Lingala/Swahili, polish UI/icônes des apps.
 
 > Devise V1 : **USD**. Langues : FR (base), EN, Lingala, Swahili. Ton : confiance institutionnelle.
