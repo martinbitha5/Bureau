@@ -52,6 +52,10 @@ institutionnel. Typecheck + build de production OK.
 ✅ **Auth e-mail** (OTP téléphone prêt) + **persistance réelle du checkout** sous RLS : trigger de
 bootstrap de profil, politiques d'écriture, score réel à la décision. Prouvé E2E (navigateur + DB).
 ✅ **Edge Function `bnpl-decision` déployée** (ACTIVE) et testée.
-🔜 Prochaine étape : `credit-web` (« Mon score ») et le mobile Expo.
+✅ **`apps/credit-web`** (« Mon score ») : jauge 300-850, score réel + historique sous RLS.
+Prouvé E2E (la boucle est visible : remboursement BNPL → score qui monte).
+✅ **`apps/credit-mobile`** (Expo + expo-router) : mêmes packages partagés, UI React Native
+(login + score). Typecheck OK ; à lancer avec `expo start` + Expo Go (appareil/émulateur).
+🔜 Prochaine étape : auth téléphone (brancher un SMS), webhook de paiement réel, apps mobiles flights/bnpl, i18n Lingala/Swahili.
 
 > Devise V1 : **USD**. Langues : FR (base), EN, Lingala, Swahili. Ton : confiance institutionnelle.

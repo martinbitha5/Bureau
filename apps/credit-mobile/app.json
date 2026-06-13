@@ -1,0 +1,13 @@
+{
+  "expo": {
+    "name": "Sensei Credit",
+    "slug": "sensei-credit",
+    "scheme": "senseicredit",
+    "version": "0.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "plugins": ["expo-router"],
+    "experiments": { "typedRoutes": true }
+  }
+}
