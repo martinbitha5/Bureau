@@ -14,7 +14,8 @@
     "clean": "echo \"(payments) nothing to clean\""
   },
   "dependencies": {
-    "@sensei/types": "workspace:*"
+    "@sensei/types": "workspace:*",
+    "@sensei/utils": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.6.0"

@@ -15,7 +15,9 @@
   },
   "dependencies": {
     "@sensei/database": "workspace:*",
-    "@sensei/types": "workspace:*"
+    "@sensei/payments": "workspace:*",
+    "@sensei/types": "workspace:*",
+    "@supabase/supabase-js": "^2.45.0"
   },
   "peerDependencies": {
     "@tanstack/react-query": "^5.0.0"

@@ -42,6 +42,10 @@ pnpm db:types       # générer les types TS depuis le schéma
 ✅ Fondation : docs, packages (`types`, `utils`, `database`, `api-client`, `auth`, `payments`,
 `notifications`, `ui`), schéma Supabase complet (`migrations/0001_init.sql`) + RLS (`0002_rls.sql`).
 ✅ **Migrations appliquées** sur le projet cloud Supabase (20 tables + RLS vérifiées).
-🔜 Prochaine étape : **tranche verticale V1** (auth → recherche vol → BNPL → score) et création des apps.
+✅ **Boucle V1 prouvée** de bout en bout contre la base cloud (`tools/demo-loop.mjs`) :
+profil crédit → vol → décision BNPL → échéancier → réservation → paiement → **le score bouge**.
+✅ Moteur de décision BNPL pur (`@sensei/payments`), provider vols mocké + checkout + hooks
+(`@sensei/api-client`), Edge Function `bnpl-decision` (à déployer).
+🔜 Prochaine étape : **`apps/flights-web`** (UI TanStack Start) par-dessus cette couche, puis l'auth téléphone réelle.
 
 > Devise V1 : **USD**. Langues : FR (base), EN, Lingala, Swahili. Ton : confiance institutionnelle.

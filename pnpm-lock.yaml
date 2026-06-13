@@ -23,9 +23,15 @@ importers:
       '@sensei/database':
         specifier: workspace:*
         version: link:../database
+      '@sensei/payments':
+        specifier: workspace:*
+        version: link:../payments
       '@sensei/types':
         specifier: workspace:*
         version: link:../types
+      '@supabase/supabase-js':
+        specifier: ^2.45.0
+        version: 2.108.1
     devDependencies:
       '@tanstack/react-query':
         specifier: ^5.0.0
@@ -71,6 +77,9 @@ importers:
       '@sensei/types':
         specifier: workspace:*
         version: link:../types
+      '@sensei/utils':
+        specifier: workspace:*
+        version: link:../utils
     devDependencies:
       typescript:
         specifier: ^5.6.0
