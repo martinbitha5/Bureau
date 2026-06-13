@@ -1,0 +1,21 @@
+# Supabase — config locale (CLI). Voir docs/INTEGRATIONS.md §2.
+project_id = "sensei-group"
+
+[db]
+port = 54322
+major_version = 15
+
+[api]
+port = 54321
+schemas = ["public"]
+extra_search_path = ["public"]
+
+[studio]
+port = 54323
+
+[auth]
+enable_signup = true
+# Auth par téléphone (OTP SMS) — cf. FEATURE_BACKLOG V1.
+[auth.sms]
+enable_signup = true
+enable_confirmations = true

@@ -1,0 +1,13 @@
+/* Design tokens (web) — miroir de src/tokens.ts. Voir docs/BRAND_BRIEF.md §3. */
+:root {
+  --sensei-ink: #0A1B2E;
+  --sensei-blue: #123A6B;
+  --sensei-blue-bright: #1E63C4;
+  --sensei-trust: #1E8E5A;
+  --sensei-warn: #C9852A;
+  --sensei-danger: #B3271E;
+  --sensei-paper: #F7F9FC;
+  --sensei-line: #D9E1EC;
+  --sensei-text: #1B2733;
+  --sensei-muted: #5B6B7B;
+}
