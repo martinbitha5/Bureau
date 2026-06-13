@@ -11,6 +11,8 @@ config.resolver.nodeModulesPaths = [
   path.resolve(projectRoot, "node_modules"),
   path.resolve(workspaceRoot, "node_modules"),
 ];
-config.resolver.disableHierarchicalLookup = true;
+// pnpm : laisser la recherche hiérarchique ACTIVE pour résoudre les dépendances
+// transitives via les node_modules imbriqués du store .pnpm (sinon @expo/metro-runtime
+// et consorts restent introuvables).
 
 module.exports = config;
