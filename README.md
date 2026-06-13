@@ -49,6 +49,9 @@ profil crédit → vol → décision BNPL → échéancier → réservation → 
 ✅ **`apps/flights-web`** (Vite + React + TanStack Router/Query) : recherche de vols → offres
 → checkout avec **échéancier BNPL en direct** (3×/4×, sans frais), multilingue FR/EN, design
 institutionnel. Typecheck + build de production OK.
-🔜 Prochaine étape : auth téléphone réelle (OTP), persistance du checkout, déploiement de l'Edge Function.
+✅ **Auth e-mail** (OTP téléphone prêt) + **persistance réelle du checkout** sous RLS : trigger de
+bootstrap de profil, politiques d'écriture, score réel à la décision. Prouvé E2E (navigateur + DB).
+✅ **Edge Function `bnpl-decision` déployée** (ACTIVE) et testée.
+🔜 Prochaine étape : `credit-web` (« Mon score ») et le mobile Expo.
 
 > Devise V1 : **USD**. Langues : FR (base), EN, Lingala, Swahili. Ton : confiance institutionnelle.

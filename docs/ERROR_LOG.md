@@ -75,7 +75,31 @@ Ces entrées sont des **rappels préventifs** issus de la conception, pas encore
 
 ## Journal des bugs rencontrés
 
-> _(Vide pour l'instant. Ajouter les entrées réelles ci-dessous, les plus récentes en haut.)_
+> _(Les plus récentes en haut.)_
+
+### 2026-06-13 — [build] `ERR_PNPM_IGNORED_BUILDS` : esbuild non construit (Vite ne démarre pas)
+- **Symptôme** : `pnpm install` / `pnpm --filter` échoue (exit 1) avec `Ignored build scripts: esbuild`. Toute commande `pnpm run` bloque.
+- **Cause racine** : pnpm v11 ne lance plus les scripts de build des dépendances par défaut, et ne lit plus le champ `pnpm` du `package.json`.
+- **Correction** : autoriser le build dans `pnpm-workspace.yaml` → `allowBuilds:\n  esbuild: true`.
+- **Prévention** : déclarer tout paquet à build natif (esbuild…) dans `pnpm-workspace.yaml`, pas dans `package.json`.
+
+### 2026-06-13 — [build] Imports relatifs en `.js` non résolus par le bundler
+- **Symptôme** : risque d'échec de bundling (Vite/Metro) sur `import "./x.js"` alors que le fichier est `x.ts`.
+- **Cause racine** : la convention TS NodeNext (`.js` pointant vers `.ts`) n'est pas comprise par esbuild/Vite au runtime.
+- **Correction** : imports relatifs **sans extension** dans les packages (`import "./x"`). Compatible `tsc` (Bundler), Vite ET Metro/Expo.
+- **Prévention** : pas d'extension sur les imports relatifs inter-fichiers des packages partagés.
+
+### 2026-06-13 — [auth] Connexion directe Postgres impossible (`db.<ref>.supabase.co` introuvable)
+- **Symptôme** : `getaddrinfo ENOTFOUND db.<ref>.supabase.co` à l'application des migrations.
+- **Cause racine** : les nouveaux projets Supabase n'exposent plus ce hostname direct (pooler IPv4, ou IPv6 only).
+- **Correction** : migrations via **SQL Editor** ou **API de gestion** (PAT). Connexion directe : utiliser le **pooler** `aws-0-<région>.pooler.supabase.com`.
+- **Prévention** : ne pas présumer du hostname direct.
+
+### 2026-06-13 — [credit] Nouvel utilisateur refusé au BNPL (score par défaut trop bas)
+- **Symptôme** : un compte fraîchement créé (score 500 par défaut en base) est systématiquement refusé (`score_too_low`).
+- **Cause racine** : le défaut de colonne `credit_profiles.current_score` (500 = "poor") < seuil 580.
+- **Correction** : le trigger `handle_new_user` (migration 0003) initialise le profil à **600** ("fair"), permettant un BNPL d'entrée de gamme (plafond 500 $).
+- **Prévention** : le score de départ est une décision **produit** ; ne pas se fier au défaut de colonne.
 
 <!-- Ex :
 ### 2026-06-20 — [expo] Build EAS échoue sur ...

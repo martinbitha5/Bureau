@@ -51,22 +51,29 @@ create trigger on_auth_user_created
   for each row execute function handle_new_user();
 
 -- 2) Politiques INSERT (écritures appartenant à l'utilisateur) ----------------
+-- Idempotent : drop-if-exists avant chaque create (migration rejouable).
 
 -- Recherches & offres de vol
+drop policy if exists flight_offers_insert on flight_offers;
 create policy flight_offers_insert on flight_offers for insert
   with check (search_id in (select id from flight_searches where user_id = app_user_id()));
 
 -- BNPL : demande, plan, échéances
+drop policy if exists bnpl_app_insert on bnpl_applications;
 create policy bnpl_app_insert on bnpl_applications for insert
   with check (user_id = app_user_id());
+drop policy if exists bnpl_plan_insert on bnpl_plans;
 create policy bnpl_plan_insert on bnpl_plans for insert
   with check (user_id = app_user_id());
+drop policy if exists installments_insert on installments;
 create policy installments_insert on installments for insert
   with check (plan_id in (select id from bnpl_plans where user_id = app_user_id()));
 
 -- Réservations (création + mise à jour de statut/paiement par le propriétaire)
+drop policy if exists bookings_insert on bookings;
 create policy bookings_insert on bookings for insert
   with check (user_id = app_user_id());
+drop policy if exists bookings_update on bookings;
 create policy bookings_update on bookings for update
   using (user_id = app_user_id())
   with check (user_id = app_user_id());
