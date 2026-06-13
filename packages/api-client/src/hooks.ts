@@ -1,7 +1,7 @@
 import { queryOptions } from "@tanstack/react-query";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { queryKeys } from "./keys.js";
-import { type FlightSearchParams, MockFlightProvider } from "./flights/provider.js";
+import { queryKeys } from "./keys";
+import { type FlightSearchParams, MockFlightProvider } from "./flights/provider";
 
 /**
  * Hooks / options TanStack Query. La SEULE porte d'entrée vers les données côté apps.

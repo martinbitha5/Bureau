@@ -46,6 +46,9 @@ pnpm db:types       # générer les types TS depuis le schéma
 profil crédit → vol → décision BNPL → échéancier → réservation → paiement → **le score bouge**.
 ✅ Moteur de décision BNPL pur (`@sensei/payments`), provider vols mocké + checkout + hooks
 (`@sensei/api-client`), Edge Function `bnpl-decision` (à déployer).
-🔜 Prochaine étape : **`apps/flights-web`** (UI TanStack Start) par-dessus cette couche, puis l'auth téléphone réelle.
+✅ **`apps/flights-web`** (Vite + React + TanStack Router/Query) : recherche de vols → offres
+→ checkout avec **échéancier BNPL en direct** (3×/4×, sans frais), multilingue FR/EN, design
+institutionnel. Typecheck + build de production OK.
+🔜 Prochaine étape : auth téléphone réelle (OTP), persistance du checkout, déploiement de l'Edge Function.
 
 > Devise V1 : **USD**. Langues : FR (base), EN, Lingala, Swahili. Ton : confiance institutionnelle.

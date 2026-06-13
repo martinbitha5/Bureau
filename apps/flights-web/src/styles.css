@@ -1,0 +1,344 @@
+/* Sensei Flights — style institutionnel (docs/BRAND_BRIEF.md). Tokens via @sensei/ui/tokens.css */
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family:
+    "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--sensei-text);
+  background: var(--sensei-paper);
+  font-variant-numeric: tabular-nums;
+}
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.header {
+  background: var(--sensei-ink);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 28px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #fff;
+}
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: var(--sensei-blue-bright);
+  font-weight: 800;
+}
+.brand-name {
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+.lang-switch {
+  display: flex;
+  gap: 6px;
+}
+.lang {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #cfdaea;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.lang.active {
+  background: #fff;
+  color: var(--sensei-ink);
+  border-color: #fff;
+  font-weight: 700;
+}
+
+.main {
+  flex: 1;
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 32px 20px;
+}
+.footer {
+  text-align: center;
+  color: var(--sensei-muted);
+  padding: 20px;
+  font-size: 13px;
+}
+.muted {
+  color: var(--sensei-muted);
+}
+.small {
+  font-size: 13px;
+}
+
+/* Hero / search */
+.hero-title {
+  font-size: 34px;
+  margin: 0 0 6px;
+  color: var(--sensei-ink);
+}
+.hero-sub {
+  color: var(--sensei-muted);
+  margin: 0 0 24px;
+}
+.search-card,
+.panel {
+  background: #fff;
+  border: 1px solid var(--sensei-line);
+  border-radius: 16px;
+  padding: 22px;
+}
+.field-row {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  font-size: 13px;
+  color: var(--sensei-muted);
+}
+.field input,
+.field select {
+  border: 1px solid var(--sensei-line);
+  border-radius: 10px;
+  padding: 11px 12px;
+  font-size: 15px;
+  color: var(--sensei-text);
+  background: #fff;
+}
+.field input:focus,
+.field select:focus {
+  outline: 2px solid var(--sensei-blue-bright);
+  border-color: var(--sensei-blue-bright);
+}
+
+/* Buttons */
+.btn-primary {
+  background: var(--sensei-blue-bright);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn-primary:hover {
+  background: var(--sensei-blue);
+}
+.btn-primary:disabled {
+  background: var(--sensei-line);
+  color: var(--sensei-muted);
+  cursor: not-allowed;
+}
+.btn-primary.small {
+  padding: 8px 14px;
+  font-size: 14px;
+}
+.btn-primary.block {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+}
+
+/* Pages */
+.page-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+.page-title {
+  font-size: 24px;
+  color: var(--sensei-ink);
+  margin: 0;
+}
+.link-back {
+  color: var(--sensei-blue);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+/* Offers */
+.offer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.offer-card {
+  background: #fff;
+  border: 1px solid var(--sensei-line);
+  border-radius: 14px;
+  padding: 18px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.offer-carrier {
+  font-weight: 700;
+  color: var(--sensei-ink);
+}
+.offer-route {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 4px 0;
+}
+.iata {
+  font-size: 18px;
+  font-weight: 700;
+}
+.offer-line {
+  color: var(--sensei-muted);
+  font-size: 12px;
+}
+.offer-side {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+}
+.offer-price {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--sensei-ink);
+}
+
+/* Checkout */
+.checkout-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+.panel-title {
+  margin: 0 0 14px;
+  font-size: 16px;
+  color: var(--sensei-ink);
+}
+.method {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: #fff;
+  border: 1.5px solid var(--sensei-line);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.method.active {
+  border-color: var(--sensei-blue-bright);
+  box-shadow: 0 0 0 3px rgba(30, 99, 196, 0.12);
+}
+.method-name {
+  font-weight: 700;
+  color: var(--sensei-ink);
+}
+.bnpl-config {
+  margin-top: 8px;
+  padding-top: 14px;
+  border-top: 1px solid var(--sensei-line);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.seg {
+  display: flex;
+  gap: 8px;
+}
+.seg-btn {
+  flex: 1;
+  border: 1px solid var(--sensei-line);
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.seg-btn.active {
+  background: var(--sensei-ink);
+  color: #fff;
+  border-color: var(--sensei-ink);
+}
+.summary .sum-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+}
+.schedule {
+  margin: 14px 0;
+  padding: 14px;
+  background: var(--sensei-paper);
+  border-radius: 12px;
+}
+.sched-title {
+  font-size: 13px;
+  color: var(--sensei-muted);
+  margin-bottom: 8px;
+}
+.sched-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+}
+.no-fees {
+  color: var(--sensei-trust);
+  font-size: 13px;
+  font-weight: 600;
+}
+.declined {
+  color: var(--sensei-danger);
+  font-size: 14px;
+  font-weight: 600;
+}
+.sum-total {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid var(--sensei-line);
+  margin-top: 12px;
+  padding-top: 12px;
+  font-size: 18px;
+  color: var(--sensei-ink);
+}
+.confirmed {
+  margin-top: 16px;
+  background: rgba(30, 142, 90, 0.1);
+  color: var(--sensei-trust);
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: 600;
+  text-align: center;
+}
+
+@media (max-width: 680px) {
+  .checkout-grid {
+    grid-template-columns: 1fr;
+  }
+  .field-row {
+    flex-direction: column;
+  }
+}

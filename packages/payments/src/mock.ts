@@ -1,4 +1,4 @@
-import type { ChargeRequest, ChargeResult, PaymentProvider } from "./provider.js";
+import type { ChargeRequest, ChargeResult, PaymentProvider } from "./provider";
 
 /**
  * Implémentation factice pour la V1 / les tests.

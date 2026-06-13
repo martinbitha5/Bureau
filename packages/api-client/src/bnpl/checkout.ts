@@ -1,5 +1,6 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { type BnplDecision, buildInstallments, decideBnpl } from "@sensei/payments";
+// (imports de packages inchangés ; seuls les imports relatifs passent sans extension)
 
 /**
  * Orchestration d'un checkout BNPL : décision → application → plan → échéancier.

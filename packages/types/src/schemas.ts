@@ -12,7 +12,7 @@ import {
   PaymentMethodType,
   PaymentStatus,
   ScoreBand,
-} from "./enums.js";
+} from "./enums";
 
 /**
  * Schémas d'entités — alignés sur docs/DATA_DICTIONARY.md.

@@ -1,6 +1,6 @@
-export * from "./keys.js";
-export * from "./flights/provider.js";
-export * from "./bnpl/checkout.js";
-export * from "./hooks.js";
+export * from "./keys";
+export * from "./flights/provider";
+export * from "./bnpl/checkout";
+export * from "./hooks";
 
 // AUCUN composant d'app ne doit appeler Supabase directement — tout passe par ici.
