@@ -12,6 +12,18 @@
       ],
       "port": 5180,
       "autoPort": false
+    },
+    {
+      "name": "credit-web",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "apps/credit-web/node_modules/vite/bin/vite.js",
+        "apps/credit-web",
+        "--port",
+        "5181"
+      ],
+      "port": 5181,
+      "autoPort": false
     }
   ]
 }

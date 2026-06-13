@@ -35,6 +35,21 @@ export function creditProfileOptions(supabase: SupabaseClient, userId: string) {
   });
 }
 
+/** Historique des événements de score de l'utilisateur (RLS : limité à son profil). */
+export function creditScoreEventsOptions(supabase: SupabaseClient, userId: string) {
+  return queryOptions({
+    queryKey: queryKeys.creditScoreEvents(userId),
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("credit_score_events")
+        .select("id, previous_score, new_score, reason_code, source, created_at")
+        .order("created_at", { ascending: false });
+      if (error) throw error;
+      return data;
+    },
+  });
+}
+
 /** Options de requête pour les plans BNPL d'un utilisateur. */
 export function bnplPlansOptions(supabase: SupabaseClient, userId: string) {
   return queryOptions({
