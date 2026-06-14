@@ -5,7 +5,7 @@
 > codes avec un système, tu construis.
 
 - **Version** : 0.1
-- **Dernière mise à jour** : 2026-06-13
+- **Dernière mise à jour** : 2026-06-14
 
 ---
 
@@ -76,6 +76,27 @@ Ces entrées sont des **rappels préventifs** issus de la conception, pas encore
 ## Journal des bugs rencontrés
 
 > _(Les plus récentes en haut.)_
+
+### 2026-06-14 — [expo] `Cannot assign to read-only property 'NONE'` (RN 0.81 New Architecture)
+- **Symptôme** : crash au démarrage de bnpl-mobile / flights-mobile sur React Native 0.81 avec New Architecture activée. Message exact : `TypeError: Cannot assign to read-only property 'NONE' of object '#<Object>'`.
+- **Contexte** : apps Expo sous New Arch (Hermes + JSI). Une bibliothèque tente d'écrire sur une propriété figée par le mode strict JSI.
+- **Cause racine** : mutation d'un objet partagé en lecture seule exposé par JSI — incompatible avec les garanties d'immutabilité de New Arch.
+- **Correction** : patch appliqué dans `apps/bnpl-mobile` et `apps/flights-mobile` (commit `152b567`).
+- **Prévention** : toute lib qui écrit sur des objets JSI doit être vérifiée avant upgrade RN. Tester New Arch explicitement dans les pipelines CI mobile.
+
+### 2026-06-14 — [expo] Metro ne bundle pas sous pnpm + Hermes (credit-mobile)
+- **Symptôme** : `pnpm --filter credit-mobile start` échoue, Metro ne résout pas les modules du monorepo. Erreur de résolution Hermes.
+- **Contexte** : credit-mobile, Expo SDK 54, pnpm workspaces.
+- **Cause racine** : Metro ne remonte pas les `node_modules` hoistés par pnpm ; Hermes a besoin d'un `metro.config.js` qui déclare explicitement les répertoires du workspace.
+- **Correction** : ajout / correction du `metro.config.js` avec `watchFolders` pointant vers la racine du monorepo (commit `f468ff5`).
+- **Prévention** : tout nouveau projet Expo dans le monorepo doit inclure un `metro.config.js` avec `watchFolders: [path.resolve(__dirname, '../..')]`.
+
+### 2026-06-14 — [expo] Incompatibilité Expo SDK 52 → 54 (credit-mobile)
+- **Symptôme** : credit-mobile ne s'ouvre plus dans Expo Go après la montée de SDK.
+- **Contexte** : Expo Go ne supporte qu'une version de SDK à la fois ; la version installée sur les devices était encore SDK 52.
+- **Cause racine** : Expo Go sur les appareils de test n'avait pas été mis à jour avant la montée de SDK côté code.
+- **Correction** : mise à jour Expo Go + ajustement des dépendances peer (commit `16c2ee2`).
+- **Prévention** : avant toute montée de SDK Expo, vérifier la version Expo Go disponible sur les stores. Documenter la version cible dans le README de l'app mobile.
 
 ### 2026-06-13 — [build] `ERR_PNPM_IGNORED_BUILDS` : esbuild non construit (Vite ne démarre pas)
 - **Symptôme** : `pnpm install` / `pnpm --filter` échoue (exit 1) avec `Ignored build scripts: esbuild`. Toute commande `pnpm run` bloque.

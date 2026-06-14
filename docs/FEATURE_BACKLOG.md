@@ -5,7 +5,7 @@
 > c'est dans « Plus tard », point.
 
 - **Version** : 0.1
-- **Dernière mise à jour** : 2026-06-13
+- **Dernière mise à jour** : 2026-06-14
 
 ---
 
@@ -21,38 +21,38 @@ Si une feature ne sert pas directement ce cycle, elle attend.
 ## ✅ V1 — Périmètre verrouillé
 
 ### Socle commun (`packages/`)
-- [ ] Auth Supabase (téléphone + OTP, email optionnel) — compte unique écosystème.
+- [~] Auth Supabase (téléphone + OTP, email optionnel) — email OK ; OTP téléphone en attente.
 - [ ] KYC minimal (1 pièce d'identité, statut `pending`/`verified`).
 - [ ] Design system minimal dans `packages/ui` (tokens du BRAND_BRIEF).
-- [ ] i18n FR + EN (Lingala/Swahili : clés en place, traductions partielles OK).
-- [ ] `api-client` : hooks TanStack Query de base.
-- [ ] RLS sur toutes les tables créées.
+- [x] i18n FR + EN (Lingala/Swahili : clés en place, traductions partielles OK).
+- [x] `api-client` : hooks TanStack Query de base.
+- [x] RLS sur toutes les tables créées.
 
 ### `flights` (canal d'acquisition)
-- [ ] Recherche de vols (origine, destination, dates, passagers, classe).
-- [ ] Affichage des offres (1 seul fournisseur d'inventaire en V1).
-- [ ] Tunnel de réservation : passagers + récap.
-- [ ] Choix du moyen de paiement : mobile money **ou** BNPL.
-- [ ] Confirmation de réservation (PNR) après paiement réussi.
+- [x] Recherche de vols (origine, destination, dates, passagers, classe).
+- [x] Affichage des offres (1 seul fournisseur d'inventaire en V1).
+- [x] Tunnel de réservation : passagers + récap (details → customise → protect → summary).
+- [x] Choix du moyen de paiement : mobile money **ou** BNPL.
+- [x] Confirmation de réservation (PNR) après paiement réussi + écran « Gérer ma réservation ».
 
 ### `bnpl` (le cœur)
-- [ ] Éligibilité instantanée appuyée sur le score `credit`.
-- [ ] Échéancier 3x ou 4x, **frais affichés clairement avant validation**.
-- [ ] Acceptation de l'échéancier (consentement).
-- [ ] Suivi des échéances : à venir / payée / en retard.
-- [ ] Prélèvement/encaissement d'une échéance (mobile money).
+- [x] Éligibilité instantanée appuyée sur le score `credit`.
+- [x] Échéancier 3x ou 4x, **frais affichés clairement avant validation**.
+- [x] Acceptation de l'échéancier (consentement).
+- [x] Suivi des échéances : à venir / payée / en retard.
+- [x] Prélèvement/encaissement d'une échéance (Edge Function `pay-installment`).
 - [ ] Rappel avant échéance (notification).
 
 ### `credit` (le moteur de données)
-- [ ] Création automatique d'un `credit_profile` à l'inscription.
-- [ ] Score interne minimal (règles simples au départ, pas de ML).
-- [ ] Mise à jour du score sur événement BNPL (`on_time_payment`, `late_payment`, `bnpl_completed`, `bnpl_default`).
-- [ ] Écran « Mon score » + historique (`credit_score_events`).
-- [ ] Journal d'audit (`audit_logs`) sur les accès au score.
+- [x] Création automatique d'un `credit_profile` à l'inscription (trigger `handle_new_user`, score initial 600).
+- [x] Score interne minimal (règles simples au départ, pas de ML).
+- [x] Mise à jour du score sur événement BNPL (`on_time_payment`, `late_payment`, `bnpl_completed`, `bnpl_default`).
+- [x] Écran « Mon score » + historique (`credit_score_events`) — dashboard + report credit-web/mobile.
+- [x] Journal d'audit (`audit_logs`) sur les accès au score.
 
 ### Paiements (`packages/payments`)
 - [ ] Intégration **un** fournisseur mobile money (priorité au plus utilisé localement).
-- [ ] Webhooks de confirmation (idempotents).
+- [x] Webhooks de confirmation (idempotents, `provider_ref`).
 
 ---
 

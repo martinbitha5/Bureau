@@ -5,7 +5,7 @@
 > est un bug de produit, pas une feature.
 
 - **Version** : 0.1 (brouillon de fondation)
-- **Dernière mise à jour** : 2026-06-13
+- **Dernière mise à jour** : 2026-06-14
 - **Statut** : noms provisoires (`credit`, `bnpl`, `flights`), branding ultérieur.
 
 ---
@@ -81,6 +81,11 @@ plus le risque baisse, plus on peut prêter — c'est l'avantage défendable du 
 - **Valeur** : premier usage tangible du BNPL ; vitrine grand public de l'écosystème.
 - **Rôle stratégique** : c'est le canal d'acquisition. Les gens viennent pour un billet,
   repartent avec un compte Sensei et un début d'historique de crédit.
+- **Modèle invité (V1)** : aucun compte requis pour chercher et réserver. Le tunnel complet
+  (recherche → détails → personnalisation → protection → récap → paiement) fonctionne sans
+  authentification. Deux références sont générées à la confirmation. L'écran « Gérer ma
+  réservation » est accessible par référence de réservation + adresse e-mail uniquement.
+  La création de compte Sensei est proposée après paiement (pas imposée).
 
 ---
 
