@@ -50,6 +50,69 @@ export function creditScoreEventsOptions(supabase: SupabaseClient, userId: strin
   });
 }
 
+/** Réservations de vol de l'utilisateur (statut de paiement). RLS : l'utilisateur ne lit que les siennes. */
+export function bookingsOptions(supabase: SupabaseClient, userId: string) {
+  return queryOptions({
+    queryKey: queryKeys.bookings(userId),
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("bookings")
+        .select("id, provider_booking_ref, status, total_cents, currency, created_at, confirmed_at")
+        .eq("user_id", userId)
+        .order("created_at", { ascending: false });
+      if (error) throw error;
+      return data;
+    },
+  });
+}
+
+/** Lignes du rapport de crédit (engagements déclarés). RLS : limité au profil de l'utilisateur. */
+export function creditReportLinesOptions(supabase: SupabaseClient, userId: string) {
+  return queryOptions({
+    queryKey: queryKeys.creditReportLines(userId),
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("credit_report_lines")
+        .select("id, category, description, amount_cents, currency, status, created_at")
+        .order("created_at", { ascending: false });
+      if (error) throw error;
+      return data;
+    },
+  });
+}
+
+/** Consentements de partage de données de l'utilisateur (qui peut voir le score). */
+export function consentsOptions(supabase: SupabaseClient, userId: string) {
+  return queryOptions({
+    queryKey: queryKeys.consents(userId),
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("consents")
+        .select("id, scope, granted_to, is_active, granted_at, revoked_at")
+        .eq("user_id", userId)
+        .order("granted_at", { ascending: false });
+      if (error) throw error;
+      return data;
+    },
+  });
+}
+
+/** Pièces d'identité de l'utilisateur (statut KYC). RLS : l'utilisateur ne lit que les siennes. */
+export function identitiesOptions(supabase: SupabaseClient, userId: string) {
+  return queryOptions({
+    queryKey: queryKeys.identities(userId),
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("identities")
+        .select("id, id_type, id_number, verified_at, created_at")
+        .eq("user_id", userId)
+        .order("created_at", { ascending: false });
+      if (error) throw error;
+      return data;
+    },
+  });
+}
+
 /** Options de requête pour les plans BNPL d'un utilisateur. */
 export function bnplPlansOptions(supabase: SupabaseClient, userId: string) {
   return queryOptions({

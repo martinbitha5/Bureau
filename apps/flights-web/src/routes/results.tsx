@@ -1,13 +1,15 @@
-import { Link, getRouteApi } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
 import { flightSearchOptions } from "@sensei/api-client";
 import { formatCents } from "@sensei/utils";
+import { useQuery } from "@tanstack/react-query";
+import { Link, getRouteApi } from "@tanstack/react-router";
 import { useI18n } from "../i18n";
 
 export interface ResultsSearch {
   origin: string;
   destination: string;
   departDate: string;
+  returnDate: string;
+  tripType: "round" | "oneway";
   passengers: number;
   cabin: "economy" | "premium" | "business";
 }
@@ -22,6 +24,7 @@ export function ResultsPage() {
       origin: search.origin,
       destination: search.destination,
       departDate: search.departDate,
+      returnDate: search.tripType === "round" ? search.returnDate : null,
       passengers: search.passengers,
       cabin: search.cabin,
     }),
@@ -33,7 +36,8 @@ export function ResultsPage() {
         <div>
           <h2 className="page-title">{t("results.title")}</h2>
           <p className="muted">
-            {search.origin} → {search.destination} · {search.passengers}{" "}
+            {search.origin} → {search.destination}
+            {search.tripType === "round" && ` → ${search.origin}`} · {search.passengers}{" "}
             {search.passengers > 1 ? t("common.passengers") : t("common.passenger")}
           </p>
         </div>
@@ -59,22 +63,27 @@ export function ResultsPage() {
                 </div>
                 <div className="muted small">
                   {seg.flightNumber} · {seg.departAt.slice(11, 16)} → {seg.arriveAt.slice(11, 16)}
+                  {search.tripType === "round" && ` · ${t("results.return")} ${search.returnDate}`}
                 </div>
               </div>
               <div className="offer-side">
                 <div className="offer-price">{formatCents(offer.totalCents)}</div>
                 <Link
-                  to="/checkout"
+                  to="/details"
                   search={{
                     origin: seg.from,
                     destination: seg.to,
                     departDate: search.departDate,
+                    returnDate: search.tripType === "round" ? search.returnDate : "",
+                    tripType: search.tripType,
                     passengers: search.passengers,
                     cabin: search.cabin,
                     carrier: seg.carrier,
                     flightNumber: seg.flightNumber,
                     providerOfferId: offer.providerOfferId,
                     totalCents: offer.totalCents,
+                    departTime: seg.departAt.slice(11, 16),
+                    arriveTime: seg.arriveAt.slice(11, 16),
                   }}
                   className="btn-primary small"
                 >

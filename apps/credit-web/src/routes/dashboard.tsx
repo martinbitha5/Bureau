@@ -8,9 +8,10 @@ import { supabase } from "../supabase";
 const SCORE_MIN = 300;
 const SCORE_MAX = 850;
 
-export function DashboardPage() {
+/** Vue « Mon score » de l'utilisateur connecté. */
+export function DashboardView() {
   const { t, lang } = useI18n();
-  const { session, appUser, loading } = useAuth();
+  const { appUser } = useAuth();
 
   const userId = appUser?.appUserId ?? "";
   const { data: profile } = useQuery({
@@ -22,17 +23,6 @@ export function DashboardPage() {
     enabled: !!userId,
   });
 
-  if (loading) return <p className="muted">{t("score.loading")}</p>;
-  if (!session) {
-    return (
-      <section className="empty-state">
-        <p className="muted">{t("auth.required")}</p>
-        <Link to="/login" className="btn-primary">
-          {t("auth.login")}
-        </Link>
-      </section>
-    );
-  }
   if (!profile) return <p className="muted">{t("score.loading")}</p>;
 
   const score = profile.current_score as number;
@@ -41,6 +31,12 @@ export function DashboardPage() {
   const updated = profile.score_updated_at
     ? new Date(profile.score_updated_at as string).toLocaleDateString(lang)
     : "";
+
+  const factors = [
+    { key: "ontime", weight: "35%" },
+    { key: "usage", weight: "30%" },
+    { key: "history", weight: "15%" },
+  ] as const;
 
   return (
     <section className="page">
@@ -54,7 +50,6 @@ export function DashboardPage() {
 
         <div className="gauge">
           <div className="gauge-track">
-            <div className={`gauge-fill band-${band}`} style={{ width: `${pct}%` }} />
             <div className="gauge-marker" style={{ left: `${pct}%` }} />
           </div>
           <div className="gauge-scale">
@@ -68,6 +63,22 @@ export function DashboardPage() {
             {t("score.updated")} {updated}
           </p>
         )}
+        <Link to="/report" className="inline-link">
+          {t("score.report.link")} →
+        </Link>
+      </div>
+
+      <h3 className="section-title">{t("score.factors.title")}</h3>
+      <div className="factor-grid">
+        {factors.map((f) => (
+          <div key={f.key} className="factor-card">
+            <div className="factor-head">
+              <span className="factor-name">{t(`score.factor.${f.key}`)}</span>
+              <span className="factor-weight">{f.weight}</span>
+            </div>
+            <p className="muted small">{t(`score.factor.${f.key}.body`)}</p>
+          </div>
+        ))}
       </div>
 
       <h3 className="section-title">{t("score.history")}</h3>

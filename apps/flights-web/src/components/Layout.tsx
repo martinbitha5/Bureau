@@ -1,11 +1,8 @@
-import { Link, Outlet, useNavigate } from "@tanstack/react-router";
-import { useAuth } from "../auth";
+import { Link, Outlet } from "@tanstack/react-router";
 import { type Lang, useI18n } from "../i18n";
 
 export function RootLayout() {
   const { t, lang, setLang } = useI18n();
-  const { session, appUser, signOut } = useAuth();
-  const navigate = useNavigate();
   const langs: Lang[] = ["fr", "en"];
 
   return (
@@ -15,26 +12,25 @@ export function RootLayout() {
           <span className="brand-mark">S</span>
           <span className="brand-name">{t("brand.name")}</span>
         </Link>
+
+        <nav className="main-nav">
+          <Link
+            to="/"
+            className="nav-link"
+            activeProps={{ className: "nav-link active" }}
+            activeOptions={{ exact: true }}
+          >
+            {t("nav.search")}
+          </Link>
+          <Link to="/manage" className="nav-link" activeProps={{ className: "nav-link active" }}>
+            {t("nav.manage")}
+          </Link>
+        </nav>
+
         <div className="header-right">
-          {session ? (
-            <>
-              <span className="who">{appUser?.fullName || t("auth.account")}</span>
-              <button
-                type="button"
-                className="lang"
-                onClick={async () => {
-                  await signOut();
-                  navigate({ to: "/" });
-                }}
-              >
-                {t("auth.logout")}
-              </button>
-            </>
-          ) : (
-            <Link to="/login" className="lang">
-              {t("auth.login")}
-            </Link>
-          )}
+          <Link to="/manage" className="lang">
+            {t("nav.manage")}
+          </Link>
           <div className="lang-switch">
             {langs.map((l) => (
               <button

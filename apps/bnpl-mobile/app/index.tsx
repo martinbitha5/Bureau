@@ -33,6 +33,12 @@ const STATUS: Record<string, string> = {
   defaulted: "En défaut",
   cancelled: "Annulé",
 };
+const STATUS_COLORS: Record<string, string> = {
+  active: colors.blueBright,
+  completed: colors.trust,
+  defaulted: colors.danger,
+  cancelled: colors.muted,
+};
 
 export default function Plans() {
   const { session, appUser, loading } = useAuth();
@@ -85,13 +91,24 @@ export default function Plans() {
       {typedPlans.map((plan) => {
         const installments = [...plan.installments].sort((a, b) => a.sequence - b.sequence);
         const next = installments.find((i) => i.status !== "paid");
+        const paidCount = installments.filter((i) => i.status === "paid").length;
+        const progress = installments.length ? (paidCount / installments.length) * 100 : 0;
+        const statusColor = STATUS_COLORS[plan.status] ?? colors.blueBright;
         return (
           <View key={plan.id} style={styles.card}>
             <View style={styles.cardHead}>
               <Text style={styles.total}>{formatCents(plan.total_cents)}</Text>
-              <View style={styles.statusChip}>
+              <View style={[styles.statusChip, { backgroundColor: statusColor }]}>
                 <Text style={styles.statusText}>{STATUS[plan.status] ?? plan.status}</Text>
               </View>
+            </View>
+            <View style={styles.progressRow}>
+              <View style={styles.progressTrack}>
+                <View style={[styles.progressFill, { width: `${progress}%`, backgroundColor: statusColor }]} />
+              </View>
+              <Text style={styles.progressText}>
+                {paidCount}/{installments.length} payées
+              </Text>
             </View>
             {installments.map((inst) => {
               const isPaid = inst.status === "paid";

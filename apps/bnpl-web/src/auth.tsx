@@ -13,6 +13,8 @@ import { supabase } from "./supabase";
 interface AuthValue {
   session: Session | null;
   appUser: AppUserContext | null;
+  /** Rôle du compte connecté, lu dans la metadata Supabase. */
+  role: "consumer" | "merchant";
   loading: boolean;
   signIn: (email: string, password: string) => Promise<{ error: string | null }>;
   signUp: (input: EmailSignUpInput) => Promise<{ error: string | null; needsConfirmation: boolean }>;
@@ -43,9 +45,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     getAppUserContext(supabase).then(setAppUser);
   }, [session]);
 
+  const role = session?.user?.user_metadata?.role === "merchant" ? "merchant" : "consumer";
+
   const value: AuthValue = {
     session,
     appUser,
+    role,
     loading,
     signIn: async (email, password) => {
       const { error } = await signInWithEmail(supabase, email, password);

@@ -1,12 +1,15 @@
-import { useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { type FormEvent, useState } from "react";
+import { useAudience } from "../audience";
 import { useAuth } from "../auth";
 import { useI18n } from "../i18n";
 
 export function LoginPage() {
   const { t } = useI18n();
+  const { audience } = useAudience();
   const { signIn } = useAuth();
   const navigate = useNavigate();
+  const isMerchant = audience === "merchant";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -25,8 +28,15 @@ export function LoginPage() {
   return (
     <section className="auth-wrap">
       <div className="auth-card">
-        <h2 className="page-title">{t("auth.login")}</h2>
-        <p className="muted small">{t("auth.subtitle")}</p>
+        <span className="audience-tag">
+          {isMerchant ? t("aud.merchants") : t("aud.buyers")}
+        </span>
+        <h2 className="page-title">
+          {isMerchant ? t("auth.merchant.loginTitle") : t("auth.buyer.loginTitle")}
+        </h2>
+        <p className="muted small">
+          {isMerchant ? t("auth.merchant.loginSub") : t("auth.buyer.loginSub")}
+        </p>
         <form onSubmit={onSubmit} className="auth-form">
           <label className="field">
             <span>{t("auth.email")}</span>
@@ -46,6 +56,13 @@ export function LoginPage() {
             {t("auth.login")}
           </button>
         </form>
+
+        <p className="auth-alt small">
+          {t("auth.noAccount")}{" "}
+          <Link to="/signup" className="auth-link">
+            {t("auth.createOne")}
+          </Link>
+        </p>
       </div>
     </section>
   );

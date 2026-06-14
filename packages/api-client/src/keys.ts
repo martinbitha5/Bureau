@@ -5,6 +5,9 @@
 export const queryKeys = {
   creditProfile: (userId: string) => ["credit", "profile", userId] as const,
   creditScoreEvents: (profileId: string) => ["credit", "score-events", profileId] as const,
+  creditReportLines: (userId: string) => ["credit", "report-lines", userId] as const,
+  consents: (userId: string) => ["credit", "consents", userId] as const,
+  identities: (userId: string) => ["credit", "identities", userId] as const,
   bnplPlans: (userId: string) => ["bnpl", "plans", userId] as const,
   installments: (planId: string) => ["bnpl", "installments", planId] as const,
   bookings: (userId: string) => ["flights", "bookings", userId] as const,

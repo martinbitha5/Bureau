@@ -1,14 +1,15 @@
 import { createRootRoute, createRoute, createRouter } from "@tanstack/react-router";
 import { RootLayout } from "./components/Layout";
+import { HomePage } from "./routes/home";
 import { LoginPage } from "./routes/login";
-import { PlansPage } from "./routes/plans";
+import { SignupPage } from "./routes/signup";
 
 const rootRoute = createRootRoute({ component: RootLayout });
 
-const plansRoute = createRoute({
+const homeRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/",
-  component: PlansPage,
+  component: HomePage,
 });
 
 const loginRoute = createRoute({
@@ -17,7 +18,13 @@ const loginRoute = createRoute({
   component: LoginPage,
 });
 
-const routeTree = rootRoute.addChildren([plansRoute, loginRoute]);
+const signupRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/signup",
+  component: SignupPage,
+});
+
+const routeTree = rootRoute.addChildren([homeRoute, loginRoute, signupRoute]);
 
 export const router = createRouter({ routeTree, defaultPreload: "intent" });
 

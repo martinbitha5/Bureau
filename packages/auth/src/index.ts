@@ -9,19 +9,40 @@ import type { SupabaseClient } from "@supabase/supabase-js";
  */
 
 // ── E-mail + mot de passe (V1) ───────────────────────────────────────────
+
+/** Rôle porté dans la metadata du compte. `consumer` = acheteur ; `merchant` = marchand. */
+export type AccountRole = "consumer" | "merchant";
+
 export interface EmailSignUpInput {
   email: string;
   password: string;
   phone: string; // mobile-first : collecté dès l'inscription
   fullName: string;
+  /** Rôle du compte. Défaut `consumer` (acheteur). */
+  role?: AccountRole;
+  /** Code pays ISO-3166 alpha-2. RDC = `CD` (seul pays V1). */
+  country?: string;
+  /** Profil marchand — uniquement si `role === "merchant"`. */
+  businessName?: string;
+  businessSector?: string;
 }
 
 /** Inscription. Le phone et le nom sont passés en metadata → lus par le trigger de bootstrap. */
 export async function signUpWithEmail(client: SupabaseClient, input: EmailSignUpInput) {
+  const data: Record<string, unknown> = {
+    phone: input.phone,
+    full_name: input.fullName,
+    role: input.role ?? "consumer",
+    country: input.country ?? "CD",
+  };
+  if (input.role === "merchant") {
+    if (input.businessName) data.business_name = input.businessName;
+    if (input.businessSector) data.business_sector = input.businessSector;
+  }
   return client.auth.signUp({
     email: input.email,
     password: input.password,
-    options: { data: { phone: input.phone, full_name: input.fullName } },
+    options: { data },
   });
 }
 

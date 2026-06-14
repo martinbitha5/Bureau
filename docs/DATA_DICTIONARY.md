@@ -240,15 +240,22 @@
 | `segments_json` | jsonb | Détail des segments (vols, horaires) |
 
 ### 7.3 `bookings` — réservations
+> Réservation **sans compte** (modèle invité, façon Alternative Airlines) : on ne crée pas de
+> compte, on s'identifie a posteriori avec `booking_ref` + `contact_email` (cf. « Gérer ma réservation »).
+
 | Champ | Type | Description |
 |---|---|---|
 | `id` | uuid | PK |
-| `user_id` | uuid | → `users.id` |
+| `user_id` | uuid | → `users.id`. **Nullable** (réservation invité sans compte) |
 | `offer_id` | uuid | → `flight_offers.id` |
-| `provider_booking_ref` | text | PNR / réf. fournisseur |
+| `booking_ref` | text | **Référence Sensei** lisible présentée au client (ex : `SN-C3E-M7Z6A`). ≠ PNR fournisseur. Sert d'identifiant pour « Gérer ma réservation » |
+| `provider_booking_ref` | text | PNR / réf. de la compagnie aérienne (nullable tant que `Processing`) |
 | `status` | booking_status | |
 | `total_cents` | bigint | Montant total |
 | `currency` | currency | `USD` |
+| `contact_email` | text | E-mail de l'acheteur (clé de récupération de la réservation invité) |
+| `contact_phone` | text | Téléphone mobile de contact (nullable) |
+| `contact_opt_in` | bool | A accepté de « rester en contact » (offres/SMS). Défaut `false` |
 | `payment_id` | uuid | → `payments.id` (nullable tant qu'impayé) |
 | `bnpl_plan_id` | uuid | → `bnpl_plans.id` (nullable si payé comptant) |
 | `created_at` / `confirmed_at` | timestamptz | |
@@ -258,9 +265,13 @@
 |---|---|---|
 | `id` | uuid | PK |
 | `booking_id` | uuid | → `bookings.id` |
-| `full_name` | text | Nom tel que sur la pièce |
+| `title` | text | Civilité (`mr`, `mrs`, `ms`, `mx`) |
+| `first_name` | text | Prénom tel que sur la pièce |
+| `middle_name` | text | Deuxième prénom (nullable) |
+| `last_name` | text | Nom de famille tel que sur la pièce |
+| `full_name` | text | Nom complet composé (compat / affichage) |
 | `birth_date` | date | |
-| `document_number` | text | Passeport/ID de voyage |
+| `document_number` | text | Passeport/ID de voyage (nullable à ce stade) |
 | `type` | text | `adult`, `child`, `infant` |
 
 ---

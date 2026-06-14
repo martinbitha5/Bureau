@@ -1,8 +1,8 @@
 import { creditProfileOptions, creditScoreEventsOptions } from "@sensei/api-client";
 import { colors } from "@sensei/ui";
 import { useQuery } from "@tanstack/react-query";
-import { Redirect } from "expo-router";
-import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Link, Redirect } from "expo-router";
+import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useAuth } from "../src/auth";
 import { supabase } from "../src/supabase";
 
@@ -22,6 +22,18 @@ const BANDS: Record<string, string> = {
   very_good: "Très bon",
   excellent: "Excellent",
 };
+const BAND_COLORS: Record<string, string> = {
+  poor: colors.danger,
+  fair: colors.warn,
+  good: colors.trust,
+  very_good: colors.blueBright,
+  excellent: colors.blue,
+};
+const FACTORS = [
+  { name: "Régularité des paiements", weight: "35%", body: "Le facteur le plus important. Payer à l'heure fait progresser votre score." },
+  { name: "Engagements en cours", weight: "30%", body: "Un endettement maîtrisé rassure les prêteurs." },
+  { name: "Ancienneté", weight: "15%", body: "Plus votre historique est long et régulier, plus votre score est solide." },
+];
 
 export default function Score() {
   const { session, appUser, loading } = useAuth();
@@ -36,24 +48,42 @@ export default function Score() {
   const score = profile.current_score as number;
   const band = profile.score_band as string;
   const pct = ((score - SCORE_MIN) / (SCORE_MAX - SCORE_MIN)) * 100;
+  const bandColor = BAND_COLORS[band] ?? colors.warn;
 
   return (
     <ScrollView style={styles.screen} contentContainerStyle={{ padding: 20 }}>
       <Text style={styles.h1}>Mon score Sensei</Text>
 
       <View style={styles.card}>
-        <Text style={styles.score}>{score}</Text>
-        <View style={styles.chip}>
+        <Text style={[styles.score, { color: bandColor }]}>{score}</Text>
+        <View style={[styles.chip, { backgroundColor: bandColor }]}>
           <Text style={styles.chipText}>{BANDS[band] ?? band}</Text>
         </View>
         <View style={styles.track}>
+          <View style={[styles.fill, { width: `${pct}%`, backgroundColor: bandColor }]} />
           <View style={[styles.marker, { left: `${pct}%` }]} />
         </View>
         <View style={styles.scale}>
           <Text style={styles.scaleText}>{SCORE_MIN}</Text>
           <Text style={styles.scaleText}>{SCORE_MAX}</Text>
         </View>
+        <Link href="/report" asChild>
+          <Pressable>
+            <Text style={styles.link}>Voir le détail de mon rapport →</Text>
+          </Pressable>
+        </Link>
       </View>
+
+      <Text style={styles.h2}>Ce qui fait bouger votre score</Text>
+      {FACTORS.map((f) => (
+        <View key={f.name} style={styles.factor}>
+          <View style={styles.factorHead}>
+            <Text style={styles.factorName}>{f.name}</Text>
+            <Text style={styles.factorWeight}>{f.weight}</Text>
+          </View>
+          <Text style={styles.muted}>{f.body}</Text>
+        </View>
+      ))}
 
       <Text style={styles.h2}>Historique</Text>
       {(!events || events.length === 0) && (
@@ -97,7 +127,8 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   chipText: { color: "#fff", fontWeight: "700" },
-  track: { height: 10, borderRadius: 999, backgroundColor: colors.line, marginTop: 18 },
+  track: { height: 10, borderRadius: 999, backgroundColor: colors.line, marginTop: 18, justifyContent: "center" },
+  fill: { position: "absolute", left: 0, top: 0, bottom: 0, borderRadius: 999 },
   marker: {
     position: "absolute",
     top: -4,
@@ -111,7 +142,19 @@ const styles = StyleSheet.create({
   },
   scale: { flexDirection: "row", justifyContent: "space-between", marginTop: 6 },
   scaleText: { color: colors.muted, fontSize: 12 },
+  link: { color: colors.blue, fontWeight: "700", marginTop: 18 },
   muted: { color: colors.muted },
+  factor: {
+    backgroundColor: "#fff",
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: colors.line,
+    padding: 14,
+    marginBottom: 10,
+  },
+  factorHead: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 4 },
+  factorName: { fontWeight: "600", color: colors.ink },
+  factorWeight: { fontWeight: "800", color: colors.blueBright },
   event: {
     backgroundColor: "#fff",
     borderRadius: 12,

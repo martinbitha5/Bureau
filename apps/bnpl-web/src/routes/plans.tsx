@@ -1,7 +1,6 @@
 import { bnplPlansOptions, creditProfileOptions, payInstallment, queryKeys } from "@sensei/api-client";
 import { formatCents } from "@sensei/utils";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useAuth } from "../auth";
 import { useI18n } from "../i18n";
@@ -22,9 +21,10 @@ interface Plan {
   installments: Installment[];
 }
 
-export function PlansPage() {
+/** Vue « Mes paiements » de l'utilisateur connecté (l'auth est gérée par HomePage). */
+export function PlansView() {
   const { t, lang } = useI18n();
-  const { session, appUser, loading } = useAuth();
+  const { appUser } = useAuth();
   const qc = useQueryClient();
   const userId = appUser?.appUserId ?? "";
   const [toast, setToast] = useState<string | null>(null);
@@ -40,18 +40,6 @@ export function PlansPage() {
       qc.invalidateQueries({ queryKey: queryKeys.creditProfile(userId) });
     },
   });
-
-  if (loading) return <p className="muted">{t("pay.loading")}</p>;
-  if (!session) {
-    return (
-      <section className="empty-state">
-        <p className="muted">{t("auth.required")}</p>
-        <Link to="/login" className="btn-primary">
-          {t("auth.login")}
-        </Link>
-      </section>
-    );
-  }
 
   const typedPlans = (plans ?? []) as unknown as Plan[];
   const score = (profile?.current_score as number) ?? appUser?.score;
