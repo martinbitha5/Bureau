@@ -21,13 +21,18 @@ export function scoreToBand(score: number): ScoreBand {
 }
 
 /** Plafond de financement par tranche, en cents USD. V1 — prudent et lisible. */
-const MAX_PRINCIPAL_CENTS: Record<ScoreBand, number> = {
+export const MAX_PRINCIPAL_CENTS: Record<ScoreBand, number> = {
   poor: 0,
   fair: 50_000, // 500 $
   good: 150_000, // 1 500 $
   very_good: 300_000, // 3 000 $
   excellent: 500_000, // 5 000 $
 };
+
+/** Plafond de financement (cents USD) pour un score donné. 0 si non éligible. */
+export function maxPrincipalForScore(score: number): number {
+  return MAX_PRINCIPAL_CENTS[scoreToBand(score)];
+}
 
 /** Échéances autorisées en V1. */
 export const ALLOWED_INSTALLMENTS = [3, 4] as const;

@@ -1,3 +1,4 @@
+import { createFileRoute } from "@tanstack/react-router";
 import { useI18n } from "../i18n";
 
 const articles = [
@@ -6,6 +7,10 @@ const articles = [
   { k: "learn.a3", icon: "🛡" },
   { k: "learn.a4", icon: "🌍" },
 ];
+
+export const Route = createFileRoute("/apprendre")({
+  component: ApprendrePage,
+});
 
 export function ApprendrePage() {
   const { t } = useI18n();

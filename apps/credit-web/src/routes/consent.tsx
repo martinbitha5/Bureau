@@ -1,6 +1,6 @@
 import { consentsOptions, identitiesOptions } from "@sensei/api-client";
 import { useQuery } from "@tanstack/react-query";
-import { Link } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useAuth } from "../auth";
 import { useI18n } from "../i18n";
 import { supabase } from "../supabase";
@@ -8,7 +8,8 @@ import { supabase } from "../supabase";
 interface Consent {
   id: string;
   scope: string;
-  granted_to: string | null;
+  granted_to_type: string | null;
+  granted_to_id: string | null;
   is_active: boolean;
   granted_at: string;
   revoked_at: string | null;
@@ -20,6 +21,10 @@ interface Identity {
   verified_at: string | null;
   created_at: string;
 }
+
+export const Route = createFileRoute("/consent")({
+  component: ConsentPage,
+});
 
 export function ConsentPage() {
   const { t, lang } = useI18n();

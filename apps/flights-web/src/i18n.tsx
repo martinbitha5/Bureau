@@ -184,8 +184,8 @@ const dict: Record<Lang, Record<string, string>> = {
     // Paiement
     "checkout.mobileMoney": "Mobile Money",
     "checkout.mobileMoneyHint": "Payez la totalité maintenant.",
-    "checkout.bnpl": "Payer en plusieurs fois",
-    "checkout.bnplHint": "Échelonnez avec Sensei, sans frais.",
+    "checkout.bnpl": "Sensei Pay",
+    "checkout.bnplHint": "Paiement en 3 ou 4 fois, sans frais.",
     "checkout.installments": "Nombre d'échéances",
     "checkout.score": "Votre score Sensei",
     "checkout.scoreHint": "Simulé pour la démo (le score réel viendra de votre profil de crédit).",
@@ -198,6 +198,18 @@ const dict: Record<Lang, Record<string, string>> = {
     "checkout.payFull": "Payer {amount} maintenant",
 
     // Confirmation
+    // Overlays de chargement par page
+    "loader.results": "Nous recherchons vos vols...",
+    "loader.results.sub": "Vérification de la disponibilité en cours.",
+    "loader.details": "Préparation de votre réservation...",
+    "loader.details.sub": "Vos informations de vol sont en cours de chargement.",
+    "loader.customise": "Chargement de vos options...",
+    "loader.customise.sub": "Personnalisez votre voyage.",
+    "loader.protect": "Chargement des protections...",
+    "loader.protect.sub": "Nous préparons vos options de couverture.",
+
+    "confirm.overlay_title": "Vous y êtes presque !",
+    "confirm.overlay_body": "Nous sécurisons votre réservation. Cela peut prendre quelques instants — veuillez ne pas actualiser ni revenir en arrière.",
     "confirm.title": "Réservation confirmée ✓",
     "confirm.body": "Conservez votre numéro de réservation pour gérer votre vol.",
     "confirm.ourRef": "Notre référence",
@@ -403,8 +415,8 @@ const dict: Record<Lang, Record<string, string>> = {
 
     "checkout.mobileMoney": "Mobile Money",
     "checkout.mobileMoneyHint": "Pay the full amount now.",
-    "checkout.bnpl": "Pay over time",
-    "checkout.bnplHint": "Split it with Sensei, no fees.",
+    "checkout.bnpl": "Sensei Pay",
+    "checkout.bnplHint": "Pay in 3 or 4 installments, no fees.",
     "checkout.installments": "Number of installments",
     "checkout.score": "Your Sensei score",
     "checkout.scoreHint": "Simulated for the demo (real score will come from your credit profile).",
@@ -416,6 +428,17 @@ const dict: Record<Lang, Record<string, string>> = {
     "checkout.declined": "Financing unavailable for this amount with your score.",
     "checkout.payFull": "Pay {amount} now",
 
+    "loader.results": "Searching for your flights...",
+    "loader.results.sub": "Checking availability.",
+    "loader.details": "Loading your booking...",
+    "loader.details.sub": "Your flight details are being prepared.",
+    "loader.customise": "Loading your options...",
+    "loader.customise.sub": "Personalise your journey.",
+    "loader.protect": "Loading protection plans...",
+    "loader.protect.sub": "We're preparing your coverage options.",
+
+    "confirm.overlay_title": "You're almost there!",
+    "confirm.overlay_body": "We're securing your booking. This may take a few moments — please don't refresh or go back.",
     "confirm.title": "Booking confirmed ✓",
     "confirm.body": "Keep your booking reference to manage your flight.",
     "confirm.ourRef": "Our reference",

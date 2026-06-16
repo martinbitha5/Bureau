@@ -70,3 +70,9 @@ export type BookingStatus = z.infer<typeof BookingStatus>;
 
 export const ActorType = z.enum(["consumer", "lender", "merchant", "staff", "system"]);
 export type ActorType = z.infer<typeof ActorType>;
+
+export const MerchantPayoutType = z.enum(["payout", "reversal"]);
+export type MerchantPayoutType = z.infer<typeof MerchantPayoutType>;
+
+export const MerchantPayoutStatus = z.enum(["pending", "succeeded", "failed"]);
+export type MerchantPayoutStatus = z.infer<typeof MerchantPayoutStatus>;

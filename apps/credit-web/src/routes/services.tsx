@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useI18n } from "../i18n";
 
 const services = [
@@ -8,6 +8,10 @@ const services = [
   { k: "svc.complaint", icon: "✉", to: "/faq" as const },
   { k: "svc.freeze", icon: "🔒", to: "/consent" as const },
 ];
+
+export const Route = createFileRoute("/services")({
+  component: ServicesPage,
+});
 
 export function ServicesPage() {
   const { t } = useI18n();

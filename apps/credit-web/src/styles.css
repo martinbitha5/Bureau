@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* Sensei Credit — style institutionnel (docs/BRAND_BRIEF.md). */
 * {
   box-sizing: border-box;

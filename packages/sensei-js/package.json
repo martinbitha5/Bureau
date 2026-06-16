@@ -1,0 +1,15 @@
+{
+  "name": "@sensei/sensei-js",
+  "version": "1.0.0",
+  "description": "SDK JavaScript Sensei — intégration marchands BNPL",
+  "main": "dist/sensei.js",
+  "module": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "build": "esbuild src/index.ts --bundle --format=iife --global-name=Sensei --outfile=dist/sensei.js --minify --define:global=window",
+    "build:dev": "esbuild src/index.ts --bundle --format=iife --global-name=Sensei --outfile=dist/sensei.js --define:global=window --sourcemap"
+  },
+  "devDependencies": {
+    "esbuild": "^0.21.0"
+  }
+}

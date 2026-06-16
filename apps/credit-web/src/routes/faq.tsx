@@ -1,7 +1,12 @@
+import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useI18n } from "../i18n";
 
 const items = ["q1", "q2", "q3", "q4", "q5", "q6"];
+
+export const Route = createFileRoute("/faq")({
+  component: FaqPage,
+});
 
 export function FaqPage() {
   const { t } = useI18n();

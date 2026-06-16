@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useI18n } from "../i18n";
 
 const personal = [
@@ -13,6 +13,10 @@ const business = [
   { k: "prod.b.decision", icon: "⚡" },
   { k: "prod.b.kyc", icon: "🔍" },
 ];
+
+export const Route = createFileRoute("/produits")({
+  component: ProduitsPage,
+});
 
 export function ProduitsPage() {
   const { t } = useI18n();

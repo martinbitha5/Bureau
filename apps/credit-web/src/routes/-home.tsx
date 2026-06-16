@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useAuth } from "../auth";
 import { useI18n } from "../i18n";
-import { DashboardView } from "./dashboard";
+import { DashboardView } from "./-dashboard";
 
 export function HomePage() {
   const { session, loading } = useAuth();

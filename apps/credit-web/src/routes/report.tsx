@@ -1,7 +1,7 @@
 import { creditReportLinesOptions } from "@sensei/api-client";
 import { formatCents } from "@sensei/utils";
 import { useQuery } from "@tanstack/react-query";
-import { Link } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useAuth } from "../auth";
 import { useI18n } from "../i18n";
 import { supabase } from "../supabase";
@@ -14,6 +14,10 @@ interface ReportLine {
   status: "current" | "late" | "closed" | "disputed";
   created_at: string;
 }
+
+export const Route = createFileRoute("/report")({
+  component: ReportPage,
+});
 
 export function ReportPage() {
   const { t, lang } = useI18n();
