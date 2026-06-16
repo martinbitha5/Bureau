@@ -1,7 +1,11 @@
-import { useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { type FormEvent, useState } from "react";
 import { useAuth } from "../auth";
 import { useI18n } from "../i18n";
+
+export const Route = createFileRoute("/login")({
+  component: LoginPage,
+});
 
 export function LoginPage() {
   const { t } = useI18n();

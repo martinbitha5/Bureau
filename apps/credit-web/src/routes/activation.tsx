@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { type FormEvent, useState } from "react";
 import { useI18n } from "../i18n";
 
@@ -9,6 +9,10 @@ type Choice = "existing" | "new";
  * Deux parcours : compte existant ou nouveau compte. Le code est validé
  * côté UI uniquement (la vraie activation passera plus tard par api-client).
  */
+export const Route = createFileRoute("/activation")({
+  component: ActivationPage,
+});
+
 export function ActivationPage() {
   const { t } = useI18n();
   const [choice, setChoice] = useState<Choice>("existing");

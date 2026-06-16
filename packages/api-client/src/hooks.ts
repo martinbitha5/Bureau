@@ -88,7 +88,7 @@ export function consentsOptions(supabase: SupabaseClient, userId: string) {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("consents")
-        .select("id, scope, granted_to, is_active, granted_at, revoked_at")
+        .select("id, scope, granted_to_type, granted_to_id, is_active, granted_at, revoked_at")
         .eq("user_id", userId)
         .order("granted_at", { ascending: false });
       if (error) throw error;
@@ -121,6 +121,38 @@ export function bnplPlansOptions(supabase: SupabaseClient, userId: string) {
       const { data, error } = await supabase
         .from("bnpl_plans")
         .select("*, installments(*)")
+        .eq("user_id", userId)
+        .order("created_at", { ascending: false });
+      if (error) throw error;
+      return data;
+    },
+  });
+}
+
+/** Un plan BNPL unique (avec ses échéances). RLS : limité au propriétaire. */
+export function bnplPlanOptions(supabase: SupabaseClient, planId: string) {
+  return queryOptions({
+    queryKey: queryKeys.bnplPlan(planId),
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("bnpl_plans")
+        .select("*, installments(*)")
+        .eq("id", planId)
+        .single();
+      if (error) throw error;
+      return data;
+    },
+  });
+}
+
+/** Historique des paiements de l'utilisateur (échéances réglées, règlements). */
+export function paymentsHistoryOptions(supabase: SupabaseClient, userId: string) {
+  return queryOptions({
+    queryKey: queryKeys.paymentsHistory(userId),
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("payments")
+        .select("id, purpose, reference_id, amount_cents, currency, status, created_at, settled_at")
         .eq("user_id", userId)
         .order("created_at", { ascending: false });
       if (error) throw error;

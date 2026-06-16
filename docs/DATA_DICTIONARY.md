@@ -71,7 +71,8 @@
 | `id` | uuid | PK | |
 | `user_id` | uuid | → `users.id` | FK |
 | `scope` | consent_scope | Portée du consentement | |
-| `granted_to` | uuid | Acteur autorisé (`lenders.id`), nullable si self | FK nullable |
+| `granted_to_type` | actor_type | Type d'acteur autorisé (`lender`, `merchant`…), nullable si self | nullable |
+| `granted_to_id` | uuid | ID de l'acteur autorisé (`lenders.id` ou `merchants.id`), nullable si self | nullable, pas de FK (polymorphe) |
 | `is_active` | bool | Consentement en cours | défaut `true` |
 | `granted_at` | timestamptz | Octroi | |
 | `revoked_at` | timestamptz | Révocation | nullable |
@@ -116,14 +117,16 @@
 | `reported_by` | uuid | Acteur source (nullable) |
 | `created_at` | timestamptz | |
 
-### 4.4 `credit_inquiries` — requêtes de score (B2B)
-> Trace chaque fois qu'un score est consulté par un tiers.
+### 4.4 `credit_inquiries` — requêtes de score (tiers : lender B2B ou merchant BNPL)
+> Trace chaque fois qu'un score est consulté par un tiers — y compris un marchand qui
+> déclenche une vérification d'éligibilité Sensei Pay au moment du paiement.
 
 | Champ | Type | Description |
 |---|---|---|
 | `id` | uuid | PK |
 | `credit_profile_id` | uuid | → `credit_profiles.id` |
-| `requested_by` | uuid | → `lenders.id` |
+| `requested_by_type` | actor_type | Type d'acteur demandeur (`lender` ou `merchant`) |
+| `requested_by_id` | uuid | ID du demandeur (`lenders.id` ou `merchants.id`), pas de FK (polymorphe) |
 | `consent_id` | uuid | → `consents.id` (obligatoire) |
 | `inquiry_type` | text | `soft` (sans impact) / `hard` (avec impact score) |
 | `created_at` | timestamptz | |
@@ -292,10 +295,35 @@
 |---|---|---|
 | `id` | uuid | PK |
 | `name` | text | Nom du marchand |
-| `settlement_account` | text | Compte de règlement |
+| `settlement_account` | text | Compte de règlement (mobile money) — où le marchand reçoit son versement net |
+| `commission_bps` | integer | Taux de commission Sensei, en points de base (500 = 5 %). Défaut 500. Modifiable seulement en base en V1 |
 | `is_active` | bool | |
 
-### 8.3 `audit_logs` — journal d'audit transverse (obligatoire)
+### 8.3 `merchant_payouts` — versements & reprises marchand (append-only)
+> Le marchand est payé **au comptant, en une fois**, net de commission, dès la capture de la
+> vente — jamais en attendant les échéances BNPL de l'acheteur. C'est Sensei qui porte seul le
+> risque d'impayé ensuite. Cette table est le grand livre de ces versements.
+
+| Champ | Type | Description |
+|---|---|---|
+| `id` | uuid | PK |
+| `merchant_id` | uuid | → `merchants.id` |
+| `type` | merchant_payout_type | `payout` (versement initial) ou `reversal` (reprise suite à remboursement) |
+| `status` | merchant_payout_status | `pending` (compte de règlement pas encore configuré), `succeeded`, `failed` |
+| `capture_transaction_id` | uuid | → `merchant_transactions.id` — la capture d'origine |
+| `refund_transaction_id` | uuid | → `merchant_transactions.id`, uniquement pour un `reversal` |
+| `source_payout_id` | uuid | → `merchant_payouts.id`, le `payout` initial dont un `reversal` reprend une fraction |
+| `commission_bps_snapshot` | integer | Taux figé au moment du versement — un changement ultérieur de `merchants.commission_bps` ne réécrit jamais l'historique |
+| `gross_amount_cents` | bigint | Montant brut de la vente (ou du remboursement, pour un `reversal`) |
+| `commission_cents` | bigint | Commission Sensei prélevée |
+| `net_amount_cents` | bigint | `gross_amount_cents - commission_cents` — ce que reçoit le marchand |
+| `currency` | currency | `USD` |
+| `settlement_account` | text | Copie figée du compte de règlement au moment du versement (audit) |
+| `provider_ref` | text | Référence idempotence (`payout_capture_<id>` / `reversal_refund_<id>`) |
+| `created_at` | timestamptz | |
+| `settled_at` | timestamptz | Nullable — fixé quand `status = succeeded` |
+
+### 8.4 `audit_logs` — journal d'audit transverse (obligatoire)
 | Champ | Type | Description |
 |---|---|---|
 | `id` | uuid | PK |

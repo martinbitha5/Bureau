@@ -9,6 +9,8 @@ import {
   InstallmentStatus,
   KycStatus,
   Language,
+  MerchantPayoutStatus,
+  MerchantPayoutType,
   PaymentMethodType,
   PaymentStatus,
   ScoreBand,
@@ -41,7 +43,8 @@ export const Consent = z.object({
   id: uuid,
   user_id: uuid,
   scope: ConsentScope,
-  granted_to: uuid.nullable(),
+  granted_to_type: ActorType.nullable(),
+  granted_to_id: uuid.nullable(),
   is_active: z.boolean().default(true),
   granted_at: timestamp,
   revoked_at: timestamp.nullable(),
@@ -69,6 +72,17 @@ export const CreditScoreEvent = z.object({
   created_at: timestamp,
 });
 export type CreditScoreEvent = z.infer<typeof CreditScoreEvent>;
+
+export const CreditInquiry = z.object({
+  id: uuid,
+  credit_profile_id: uuid,
+  requested_by_type: ActorType,
+  requested_by_id: uuid,
+  consent_id: uuid,
+  inquiry_type: z.enum(["soft", "hard"]),
+  created_at: timestamp,
+});
+export type CreditInquiry = z.infer<typeof CreditInquiry>;
 
 // ── BNPL ─────────────────────────────────────────────────────
 export const BnplApplication = z.object({
@@ -137,6 +151,26 @@ export const PaymentMethod = z.object({
   created_at: timestamp,
 });
 export type PaymentMethod = z.infer<typeof PaymentMethod>;
+
+// ── Marchand / règlement ─────────────────────────────────────
+export const MerchantPayout = z.object({
+  id: uuid,
+  merchant_id: uuid,
+  type: MerchantPayoutType,
+  status: MerchantPayoutStatus,
+  capture_transaction_id: uuid,
+  refund_transaction_id: uuid.nullable(),
+  source_payout_id: uuid.nullable(),
+  commission_bps_snapshot: z.number().int().min(0).max(10000),
+  gross_amount_cents: cents,
+  commission_cents: cents,
+  net_amount_cents: cents,
+  currency: Currency,
+  settlement_account: z.string().nullable(),
+  created_at: timestamp,
+  settled_at: timestamp.nullable(),
+});
+export type MerchantPayout = z.infer<typeof MerchantPayout>;
 
 // ── Vols ─────────────────────────────────────────────────────
 export const Booking = z.object({
